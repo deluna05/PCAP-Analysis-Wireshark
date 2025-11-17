@@ -1,3 +1,9 @@
-# TShark Summary
+TShark Summary
 
-(Добавьте сюда вывод команды `tshark -r sample.pcap -q -z io,stat,0` или любой другой сводки.)
+Run the following command to generate a summary:
+tshark -r ../analysis/sample.pcap -q -z io,stat,0
+
+Or for TCP conversations:
+tshark -r ../analysis/sample.pcap -q -z conv,tcp
+
+Output will be displayed here after running the analysis.
