@@ -1,0 +1,3 @@
+# TShark Summary
+
+(Добавьте сюда вывод команды `tshark -r sample.pcap -q -z io,stat,0` или любой другой сводки.)
