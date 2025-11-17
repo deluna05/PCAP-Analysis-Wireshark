@@ -79,54 +79,25 @@ Filter:
 
 
 tcp.flags.syn==1 && tcp.flags.ack==1
-
-
-
 This shows SYN/ACK packets (responses). Then search for ACKs from client:
 
-
-
-
-
 tcp.flags.ack==1 && tcp.len==0
-
-
-
 Completed 3-way handshake will show SYN, SYN/ACK, ACK. If many SYNs but few complete, it's a scan.
 
-
-
 ---
-
-
 
 ## 4) DNS examination
 
 Filter DNS:
 
-
-
-
-
 dns
 
-
-
 Look for unusual domains, high frequency queries, or long domain names (possible exfil). Note: check `dns.qry.name` fields in tshark:
-
-
-
-
 
 tshark -r sample.pcap -Y dns -T fields -e frame.number -e ip.src -e dns.qry.name | sort | uniq -c | sort -nr
 
 
-
-
-
 ---
-
-
 
 ## 5) Suspicious traffic
 
@@ -134,38 +105,20 @@ tshark -r sample.pcap -Y dns -T fields -e frame.number -e ip.src -e dns.qry.name
 
 - If encrypted protocols (TLS) used on non-standard ports — investigate.
 
-
-
 ---
-
-
 
 ## 6) Extract suspicious flows
 
 Example:
 
-
-
-
-
 tshark -r sample.pcap -Y "ip.src==192.0.2.10 && tcp" -w artifacts/suspicious_flow.pcap
-
-
 
 Open `suspicious_flow.pcap` in Wireshark for step-by-step packet review.
 
-
-
 ---
-
-
 
 ## Final note (example conclusion)
 
 - Observed a SYN scan from 192.0.2.10 toward 10.0.0.5 across ports 22,80,443 — few handshakes completed → likely reconnaissance.
 
 - Observed repeated DNS queries for `weird-subdomain.example.com` — further investigation recommended (resolve domain, check WHOIS, check passive DNS).
-
-
-
-(вставь как есть в analysis/analysis.md)
